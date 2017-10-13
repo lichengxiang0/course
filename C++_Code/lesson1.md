@@ -58,3 +58,50 @@ int main()
 
 
 
+## 数组  
+两种方法初始化字符串mystring:  
+char mystring[]={'H','e','l','l','o','\0'};  
+char mystring[]="Hello";  
+注：双引号表示一串连续字符的常量，它的结尾总是自动加上一个空字符（'\0'）  
+
+C++的输入捕获  
+当cin被用来输入字符序列值时，它通常与函数getline一起使用。方法如下：  
+cin.getline( char buffer[],int length,char delimiter='\n' );  
+*  buffer:存储输入烦人地址，例如一个数组名  
+* length:缓存buffer的最大容量  
+* delimiter:判断用户输入结束的字符，默认值是换行符  
+下面是一个例子  
+
+```C++
+#include <iostream>  
+using namespace std;
+
+int main()
+{
+	char mybuffer[100];
+	cout<<"What's your name?";  
+	cin.getline(mybuffer,100);  
+	cout<<"Hello"<<mybuffer<<".\n";
+	cout<<"Which is your favorite team?";
+	cin.getline(mybuffer,100);  
+	cout<<"I like"<<mybuffer<<"too.\n";  
+	return 0;
+}
+
+```
+运行的结果:  
+What's your name? Juan  
+Hello Juan.  
+Which is your favourite team? Inter Milan  
+I like Inter Milan too.  
+
+注意：  
+我们也可以用这种方式获取用户输入：  
+```C++  
+	cin>>mybuffer
+```  
+这种方式也可以工作，但是它有以下极限性是cin.getline所没有的：  
+- 它只能接收单独的词（而不是完整的句子），因为这种方法以任何空白符为分隔符，包括空格space,跳跃符tabulators，换行符newlines和回车符arriage returns。  
+- 它不能给buffer制定容量，这使得程序不稳定，如果用户输入超出数组长度，输入信息会被丢失。  
+因此，建议在需要用cin来输入字符串时，使用cin.getline来代替cin>>.  
+
