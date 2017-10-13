@@ -105,3 +105,45 @@ I like Inter Milan too.
 - 它不能给buffer制定容量，这使得程序不稳定，如果用户输入超出数组长度，输入信息会被丢失。  
 因此，建议在需要用cin来输入字符串时，使用cin.getline来代替cin>>.  
 
+## 字符串和其它数据类型的转换  
+	用上面的方法：cin.getline(mybuffer,100);很容易获取到键盘的输入，并存储到数组mybuffer中，但是字符串数组可能包含有其它数据类型的内容，所以函数库cstdlib(stdlib.h)提供了三个有用的函数：  
+* atoi:将字符串string转化为整形int  
+* atol:将字符串string转化为长整型long  
+* atof:将字符串string转化为浮点型float  
+
+```C++  
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+int main()
+{
+	char mybuffer[100];
+	float price;
+	int quantity;
+	cout << "Enter price:";
+	cin.getline(mybuffer,100);
+	price = atof(mybuffer);
+	cout << "Enter quantity:";
+	cin.getline(mybuffer,100);
+	quantity = atoi(mybuffer);
+	cout << "Total price:" << price*quantity<<endl;
+
+	return 0;
+}
+```  
+运行结果：  
+Enter price:2.75  
+Enter quantity:21  
+Total price:57.75  
+
+## 字符串操作函数  
+列举4个常用的处理字符串的函数：  
+- strcat: char* strcat (char* dest, const char* src); //将字符串src 附加到字符串dest 的末尾，返回dest。  
+
+- strcmp: int strcmp (const char* string1, const char* string2); //比较两个字符串string1 和string2。如果两个字符串相等，返回0。  
+
+- strcpy: char* strcpy (char* dest, const char* src); //将字符串src 的内容拷贝给dest，返回dest 。  
+
+- strlen: size_t strlen (const char* string); //返回字符串的长度。  
+
