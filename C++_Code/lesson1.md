@@ -218,3 +218,82 @@ int main()
 运行结果：  
 	value1==10/value2==20  
 	
+### 空指针  
+void指针可以指向任意类型的数据，但是不可以被直接引用（不可以对他们使用引用星号*），因为它的长度是不固定的，因此，必须使用类型转换操作或赋值操作来把void指针指向一个具体的数据类型。  
+用处之一是给函数传递通用参数：
+
+```C++  
+#include <iostream>
+using namespace std;
+
+
+void increase(void* data, int type)
+{
+	switch (type)
+	{
+	case sizeof(char) : (*((char *)data))++; break;
+	case sizeof(short) : (*((short *)data))++; break;
+	case sizeof(long) : (*((long *)data))++; break;
+	default:break;
+	}
+}
+
+int main()
+{
+	char a = 5;
+	short b = 9;
+	long c = 12;
+
+	increase(&a, sizeof(a));
+	increase(&b, sizeof(b));
+	increase(&c, sizeof(c));
+	cout << (int)a << "," << b << "," << c << endl;
+
+	return 0;
+}
+
+```  
+
+运行结果：  
+6,10,13  
+
+
+### 函数指针  
+C++允许对指向函数的指针进行操作。它最大的作用是把一个函数作为参数传递给另外一个函数。声明一个函数指针像声明一个函数原型一样，除了函数的名字需要被扩在括号内并在前面加星号asterisk（*）。例如：  
+```C++
+#include <iostream>
+using namespace std;
+
+int addition(int a, int b)
+{
+	return (a + b);
+}
+int subtraction(int a, int b)
+{
+	return (a - b);
+}
+
+int (* minu)(int, int) = subtraction;
+int operation(int x, int y, int(*functocall)(int, int))
+{
+	int g;
+	g = (*functocall)(x,y);
+	return(g);
+}
+
+int main()
+{
+	int m, n;
+	m = operation(7,5,addition);
+	n = operation(20,m,minu);
+	cout << n << endl;
+
+	return 0;
+}
+```  
+运行结果为8  
+
+在这个例子中，minu是一个全局指针，指向一个有两个整形参数的函数，它被赋值指向函数subtraction.  
+这里int(*minu)(int,int)实际上是在定义一个指针变量，这个指针的名字叫做minu，这个指针的类型实际上是指向一个函数，函数的类型是有两个整形参数并返回一个整形值。  
+
+
