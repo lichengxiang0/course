@@ -147,3 +147,74 @@ Total price:57.75
 
 - strlen: size_t strlen (const char* string); //返回字符串的长度。  
 
+## 指针  
+### 地址操作符  
+地址操作符：& ，又称为去引操作符。例如：  
+```C++
+	ted=&andy  
+```  
+将变量andy的地址赋值给变量ted,这时，我们指的不再是变量的内容，而是它在内存中的地址。  
+假设andy被放在内存地址1776的单元中，然后我们有下列代码：  
+```C++
+	andy=25;  
+	fred=andy;  
+	ted=&andy;  
+```
+  fred和andy的值都是25，ted的值是1776.  
+### 引用操作符  
+使用指针的时候，我们可以通过在指针标识符的前面加星号（*）来存储该指针指向的变量所存储的数值，翻译为“所指向的数值”。例子：  
+```C++
+	beth = ted;//beth等于ted(1766)    
+	beth = *ted;//beth等于ted所指向的数值25  
+```  
+***注：***  
+__地址或反引用操作符（&）__  
+	它被用作一个变量前缀，可以被翻译为“...的地址”，因此：&variable1可以被读作variable1的地址。  
+__引用操作符（*)__  
+ 	表示地址所指向的内容。可以被翻译为“...指向的数值”，*mypointer可以被读作“mypoint指向的数值”。   
+  
+  下面举两个例子，第一个例子要简单点，第二个稍微复杂。  
+  
+```C++
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int value1=5,value2=15;  
+	int *mypointer;  
+	mypointer=&value1;  
+	*mypointer = 10;
+	mypointer=&value2;
+	*mypointer=20;
+	cout<<"value1=="<<value1<<"value2=="<<value2<<endl;  
+	return 0;
+}
+
+```  
+运行结果：  
+value1==10/value2==20  
+
+/*************************************************/  
+```C++
+#include <iostream>  
+using namespace std;  
+
+int main()
+{
+	int value1=5,value2=15;  
+	int *p1,*p2;  
+	p1=&value1;  
+	p2=&value2;  
+	*p1=10;  
+	*p2=*p1;  
+	p1=p2;  
+	*p1=20;  
+	cout<<"value1=="<<value1<<"value2=="<<value2<<endl;  
+	return 0;  
+}
+
+```  
+运行结果：  
+	value1==10/value2==20  
+	
