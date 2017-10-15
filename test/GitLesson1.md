@@ -1,8 +1,8 @@
-#github说明  
+# github说明  
 
 git是一个版本控制系统，也称SCM  
 
-##GitHub开源之旅第一季：github启程
+## GitHub开源之旅第一季：github启程
 	需要掌握的操作操作步骤
 最开始时的操作，  git config --list   查看当前的变量情况  
 git config --global user.name "李呈祥"  
@@ -24,7 +24,7 @@ git push origin master   把地址源推送到master分支上
 
 后面的学习会继续深入理解的学习github跟多相关的命令
 
-##GitHub开源之旅第二季：MarkDown  
+## GitHub开源之旅第二季：MarkDown  
 	GitHub使用，平时多用GitHub，把自己的学习资料整理，都写成md文档，从最开始的文档开始，想方法多使用Github，最后跟进项目。
   
 ### MarkDown第一部分语法规则:语法：标题，段落，强调，列表  
