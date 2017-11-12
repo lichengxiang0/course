@@ -174,11 +174,89 @@ ___倾斜加粗___
 
 - 块式代码  
 块式代码最简单，只需两个反引号就行了  
-```C++
-C++代码范例  
+```C++  
+
+#include <stdio.h>  
+
+int main()  
+{  
+	printf("Hello,World! \n");  
+	return 0;  
+}  
 ```  
 
 可以加标记，注明是什么代码，不加注释没高亮显示  
+
+
+### 小结：本次语法总结的内容，链接，图片，引用，代码块  
+其中，链接需要进一部学习  
+
+
+下面要总结的语法为：水平分割线，HTML语法，表格，GFM语法  
+
+## 水平分割线  
+
+<hr>Horizontal Rule
+  
+---
+  
+***  
+  
+___  
+  
+水平分割线有三种写法：横线，星号，下划线      
+
+
+## HTML语法  
+ 
+如果我们要使用超出MarkDown以外的语法，就要用HTML语法。例如，MarkDown语法没有让文字居中的效果。  
+<p align='center'>Hello World!</p>  
+上面我们借助html语法。  
+
+html的注释：  
+<!--
+这些文字会被忽视掉，同时也不会显示  
+-->
+更多内容要熟悉html语法。  
+
+
+## 表格  
+
+| 这时  |  一个  |  表格  |  实验  |
+|-----|:-----:|-----:|:-----|
+|aaaaaaaaaa|bbbbbbbbbbb|cccccccccccccc|ddddddddddddddd|
+|eeeee|fffff|ggggg|hhhhh|  
+
+表格实验中，第二行横线和重要，一定要写上。同时通过加冒号，可以设置文字对其方式，默认是左对其，在前面加冒号表示左对其，后面加冒号表示右对其，两边都加冒号表示居中。  
+
+还有一种玩法，就是精简表格，去掉最前面的竖线和最后面的竖线  
+
+ 这时  |  一个  |  表格  |  实验  
+-----|:-----:|-----:|:-----  
+aaaaaaaaaa|bbbbbbbbbbb|cccccccccccccc|ddddddddddddddd  
+eeeee|fffff|ggggg|hhhhh  
+
+当然这个效果阅览不出来，推送到github上可以看到效果     
+
+表格语法还可以加粗，斜体文字，加图片等，和上面讲到的用法一样  
+
+
+## GFM语法  
+Github Flvored MarkDown,GFM  
+
+MakkDown是一种文本，没有规范，它有自己的特色，GFM就是它的特色语法  
+
+第一个特色语法，任务列表  
+- [ ] item1    
+- [x] item2   
+- [ ] item3  
+
+第二个特色语法，表情符号  
+格式：  
+：表情符号代码：  
+冒号+表情符号代码+冒号  
+：smile:  
+:blush:  
 
 
 
