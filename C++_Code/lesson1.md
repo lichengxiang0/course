@@ -296,4 +296,217 @@ int main()
 在这个例子中，minu是一个全局指针，指向一个有两个整形参数的函数，它被赋值指向函数subtraction.  
 这里int(*minu)(int,int)实际上是在定义一个指针变量，这个指针的名字叫做minu，这个指针的类型实际上是指向一个函数，函数的类型是有两个整形参数并返回一个整形值。  
 
+## 动态内存分配  
+到目前为止，程序中只用了声明变量、数组和其它对象（object）所需要的内存空间，这些内存空间的大小都在程序执行之前都已经确定。但是如果我们需要的内存大小是一个变量，其大小只有在我们程序运行时才能确定，有时候也需要根据用户输入来决定必须的内存空间，这是问题就来了，所以我们必须使用动态内存分配。  
+	为此，C++集成了操作符new和delete.  
+	
+### 动态内存管理的函数  
+- 函数malloc  
+函数原型：void * malloc( size_t nbytes );  
+其中nbyte是我们想要给指针分配的内存字节数。这个函数返回一个void*类型的指针，因此我么需要用类型转换来把它转换成目标所需要的数据类型。例如：  
+```C++
+char * ronny;
+ronny=(char *)malloc(10);
+```  
+当我们想要给char以外的类型（不是一个字节的长度）的数值分配内存时，我们需要用元素数乘以每个元素的长度来确定所需要的内存大小。我们可以用操作符sizeof  
+```C++  
+int * bobby;
+bobby=(int *)malloc(5*sizeof(int));  
+```  
+- 函数calloc  
+calloc与malloc在操作上非常相似，他们主要的区别是在原型上：  
+```C++
+void * calloc(size_t nelements,size_t size);  
+```  
+第一个参数netements是元素的个数，第二个参数size被用来表示每个元素的长度。  
+```C++
+int * bobby;  
+bobby=(int *)calloc(5,sizeof(int));  
+```  
+注意：malloc和calloc的另一点不同在于calloc会将所有的元素初始化为0.  
+
+- 函数realloc  
+改变已经被分配给一个指针的内存长度。  
+```C++
+void * realloc( void * pointer,size_t size );
+```  
+参数pointer用来传递一个已经被分配内存的指针或一个空指针。  
+参数size用来指明新的内存长度。
+
+- 函数free  
+释放前面malloc,calloc或realloc所分配的空间。  
+```C++
+void free(void * pointer);
+```  
+
+## 数据结构  
+一个数据结构是组合到同一定义下的一组不同类型的数据，各个数据类型的数据长度可能不同。例如：  
+```C++
+struct products
+{
+	char name[30];  
+	float price;  
+};
+products apple;
+products orange,melon;  
+``` 
+也可以这样声明：  
+```C++
+struct products
+{
+	char name[30];  
+	float price;  
+}apple,orange,melon;
+``` 
+下面是一个关于电影的例子：  
+```C++
+#include <iostream>
+#include <string.h>
+#include <stdlib.h>
+using namespace std;
+
+struct movies_t
+{
+	char title[50];
+	int year;
+}mine, yours;
+
+void printmovie(movies_t movie);
+
+int main()
+{
+	char buffer[50];
+	strcpy_s( (mine.title), "2001 A Space Odyssey");
+	mine.year = 1968;
+	cout << "Enter title:";
+	cin.getline(yours.title, 50);
+	cout << "Entry years:";
+	cin.getline(buffer, 50);
+	yours.year = atoi(buffer);
+	cout << "My favorite movie is:\n";
+	printmovie(mine);
+	cout << "And yours:\n";
+	printmovie(yours);
+
+	return 0;
+}
+
+void printmovie(movies_t movie)
+{
+	cout << movie.title;
+	cout << "(" << movie.year << ")\n";
+}
+
+```
+运行结果：  
+Enter title:Alien  
+Entry years:1979  
+My favorite movie is:  
+2001 A Space Odyssey(1968)  
+And yours:  
+Alien(1979)  
+请按任意键继续. . .  
+
+
+## 友元函数  
+为了实现允许一个外部函数访问class的private和protected成员，必须在class内部用关键词friend声明外部函数原型，以指定允许函数共享class的成员。下面是一个例子：  
+```C++  
+#include <iostream>
+using namespace std;
+
+class CRectangle
+{
+	int width, height;
+public:
+	void set_values(int ,int);
+	int area(void) 
+	{
+		return (width*height); 
+	}
+	friend CRectangle duplicate(CRectangle);
+
+};
+
+void CRectangle::set_values(int a, int b)
+{
+	width = a;
+	height = b;
+}
+
+CRectangle duplicate(CRectangle rectparam)
+{
+	CRectangle rectres;
+	rectres.width = rectparam.width * 2;
+	rectres.height = rectparam.height * 2;
+	return (rectres);
+}
+
+int main()
+{
+	CRectangle rect, rectb;
+	rect.set_values(2,3);
+	rectb = duplicate(rect);
+	cout << rectb.area() << endl;
+}
+
+
+```  
+运行的结果: 
+```C 
+	24  
+```  
+
+## 友元类  
+```C++
+#include <iostream>
+using namespace std;
+
+class CSquare;
+
+class CRectangle
+{
+	int width, height;
+public:
+	int area(void)
+	{
+		return (width*height);
+	}
+	void convert(CSquare a);
+};
+
+class CSquare
+{
+private:
+	int side;
+public:
+	void set_side(int a)
+	{
+		side = a;
+	}
+	friend class CRectangle;
+};
+
+void CRectangle::convert(CSquare a)
+{
+	width = a.side;
+	height = a.side;
+}
+
+int main()
+{
+	CSquare sqr;
+	CRectangle rect;
+	sqr.set_side(4);
+	rect.convert(sqr);
+	cout << rect.area()<<endl;
+	return 0;
+}
+
+```  
+运行结果：
+```C  
+	16  
+```  
+
+这里说明一点，class之前包含一个CSquare的声明，应为我们在CRectangle引用了CSquare，而CSquare定义在后面，如果不声明，则在CRectangle是不可见的。  
 
