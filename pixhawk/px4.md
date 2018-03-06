@@ -9,3 +9,11 @@
 	6. 在飞行里垂直起降锁住升降附翼  
 	7. 过度时间  
 	8. 在转换代码中，避免导致零分割的参数  
+	
+
+## uORB消息订阅机制  
+在订阅sensor_combine时，包含四个模块的数据：  
+	1. gyro 陀螺仪  
+	2. accelerometer 加速度计  
+	3. magnetometer 磁强计  
+	4. baro 气压计  
